@@ -9,22 +9,21 @@ import numpy as np
 import os
 import glob
 import sys
-import subprocess
+import time
 
-
-# Function to install packages
-def install_packages(package):
-    subprocess.check_call([sys.executable, "-m", "pip", "install", package])
 
 try:
-    from meteohub import run_meteohub
-except ImportError:
-    # st.error("The meteohub package is not installed. Please install it with `pip install meteohub`.")
-    # install with `pip install meteohub` with subprocess
-    install_packages(f"git+https://{st.secrets['GITHUB_TOKEN']}@github.com/SaferPlaces2023/meteohub.git")
+    # replace "yourpackage" with the package you want to import
     from meteohub import run_meteohub
 
-
+# This block executes only on the first run when your package isn't installed
+except ModuleNotFoundError as e:
+    print("METEOHUB not found. Installing...")
+    subprocess.Popen([f'{sys.executable} -m pip install git+https://{st.secrets['GITHUB_TOKEN']}@github.com/yourusername/yourrepo.git'], shell=True)
+    # wait for subprocess to install package before running your actual code below
+    time.sleep(90)
+  
+from meteohub import run_meteohub
 
 def read_geotiff(file_path):
     with rasterio.open(file_path) as src:
