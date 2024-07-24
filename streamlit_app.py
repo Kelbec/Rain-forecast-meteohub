@@ -20,10 +20,10 @@ try:
 except ModuleNotFoundError as e:
     print("METEOHUB not found. Installing...")
     token = st.secrets['GITHUB_TOKEN']
-    subprocess.Popen([f"{sys.executable} -m pip install git+https://{token}@github.com/yourusername/yourrepo.git"], shell=True)
+    subprocess.Popen([f"{sys.executable} -m pip install git+https://{token}@github.com/SaferPlaces2023/meteohub.git"], shell=True)
     del token
     # wait for subprocess to install package before running your actual code below
-    time.sleep(90)
+    time.sleep(30)
   
 from meteohub import run_meteohub
 
