@@ -8,14 +8,20 @@ from folium.raster_layers import ImageOverlay
 import numpy as np
 import os
 import glob
+import sys
+import subprocess
+
+
+# Function to install packages
+def install_packages(package):
+    subprocess.check_call([sys.executable, "-m", "pip", "install", package])
 
 try:
     from meteohub import run_meteohub
 except ImportError:
     # st.error("The meteohub package is not installed. Please install it with `pip install meteohub`.")
     # install with `pip install meteohub` with subprocess
-    import subprocess
-    subprocess.run(["pip", "install", f"git+https://{st.secrets['GITHUB_TOKEN']}@github.com/SaferPlaces2023/meteohub.git"])
+    install_packages(f"git+https://{st.secrets['GITHUB_TOKEN']}@github.com/SaferPlaces2023/meteohub.git")
     from meteohub import run_meteohub
 
 
