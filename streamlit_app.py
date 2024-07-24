@@ -6,9 +6,17 @@ import rasterio
 from rasterio.plot import show
 from folium.raster_layers import ImageOverlay
 import numpy as np
-from meteohub import run_meteohub
 import os
 import glob
+
+try:
+    from meteohub import run_meteohub
+except ImportError:
+    # st.error("The meteohub package is not installed. Please install it with `pip install meteohub`.")
+    # install with `pip install meteohub` with subprocess
+    import subprocess
+    subprocess.run(["pip", "install", f"git+https://{st.secrets['GITHUB_TOKEN']}@github.com/SaferPlaces2023/meteohub.git"])
+
 
 
 def read_geotiff(file_path):
