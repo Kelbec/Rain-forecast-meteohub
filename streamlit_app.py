@@ -10,7 +10,7 @@ import os
 import glob
 import sys
 import time
-
+import subprocess
 
 try:
     # replace "yourpackage" with the package you want to import
@@ -20,8 +20,8 @@ try:
 except ModuleNotFoundError as e:
     print("METEOHUB not found. Installing...")
     token = st.secrets['GITHUB_TOKEN']
-    print("TOKEN = ", token)
     subprocess.Popen([f'{sys.executable} -m pip install git+https://{token}@github.com/yourusername/yourrepo.git'], shell=True)
+    del token
     # wait for subprocess to install package before running your actual code below
     time.sleep(90)
   
