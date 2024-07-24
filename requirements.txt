@@ -3,3 +3,4 @@ folium
 streamlit-folium
 geopandas
 rasterio
+git+https://github.com/SaferPlaces2023/meteohub.git

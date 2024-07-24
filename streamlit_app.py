@@ -8,23 +8,21 @@ from folium.raster_layers import ImageOverlay
 import numpy as np
 import os
 import glob
-import sys
-import time
-import subprocess
+# import sys
+# import time
+# import subprocess
+# try:
+#     # replace "yourpackage" with the package you want to import
+#     from meteohub import run_meteohub
 
-try:
-    # replace "yourpackage" with the package you want to import
-    from meteohub import run_meteohub
-
-# This block executes only on the first run when your package isn't installed
-except ModuleNotFoundError as e:
-    print("METEOHUB not found. Installing...")
-    token = st.secrets['GITHUB_TOKEN']
-    subprocess.Popen([f"pip install git+https://{token}@github.com/SaferPlaces2023/meteohub.git"], shell=True)
-    del token
-    # wait for subprocess to install package before running your actual code below
-    time.sleep(60)
-  
+# # This block executes only on the first run when your package isn't installed
+# except ModuleNotFoundError as e:
+#     print("METEOHUB not found. Installing...")
+#     token = st.secrets['GITHUB_TOKEN']
+#     subprocess.Popen([f"pip install git+https://{token}@github.com/SaferPlaces2023/meteohub.git"], shell=True)
+#     del token
+#     # wait for subprocess to install package before running your actual code below
+#     time.sleep(90)
 from meteohub import run_meteohub
 
 def read_geotiff(file_path):
