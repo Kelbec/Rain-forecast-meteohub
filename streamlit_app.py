@@ -19,7 +19,9 @@ try:
 # This block executes only on the first run when your package isn't installed
 except ModuleNotFoundError as e:
     print("METEOHUB not found. Installing...")
-    subprocess.Popen([f'{sys.executable} -m pip install git+https://{st.secrets['GITHUB_TOKEN']}@github.com/yourusername/yourrepo.git'], shell=True)
+    token = st.secrets['GITHUB_TOKEN']
+    print("TOKEN = ", token)
+    subprocess.Popen([f'{sys.executable} -m pip install git+https://{token}@github.com/yourusername/yourrepo.git'], shell=True)
     # wait for subprocess to install package before running your actual code below
     time.sleep(90)
   
