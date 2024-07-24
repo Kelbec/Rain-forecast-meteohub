@@ -16,6 +16,7 @@ except ImportError:
     # install with `pip install meteohub` with subprocess
     import subprocess
     subprocess.run(["pip", "install", f"git+https://{st.secrets['GITHUB_TOKEN']}@github.com/SaferPlaces2023/meteohub.git"])
+    from meteohub import run_meteohub
 
 
 
