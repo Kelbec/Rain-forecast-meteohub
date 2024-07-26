@@ -60,7 +60,7 @@ def remove_tif_files():
         os.remove(tif_file)
         
 # Streamlit app
-st.title("GeoTIFF Layers Viewer")
+st.title("Meteohub total precipitation forecast")
 
 # Inputs for meteohub request
 dataset = st.text_input(label="Dataset", value="COSMO-2I", help="The dataset to download.")
@@ -70,7 +70,7 @@ date = st.text_input(label="Date", value="", help="The datetime to download with
 run = st.text_input(label="Run", value="00:00", help="The dataset to download.")
 start_fc = st.text_input(label="Start Forecast", value="1", help="The hour at which the accumulation starts.")
 end_fc = st.text_input(label="End Forecast", value=None, help="The hour at which the accumulation ends.")
-fc_range = st.checkbox(label="Forecast Range", help="If True the output will be multiple tif files, one for each forecast hour. Default is False")
+# fc_range = st.checkbox(label="Forecast Range", help="If True the output will be multiple tif files, one for each forecast hour. Default is False")
 out = f"{dataset}_{varname}_{date}_{run}_{start_fc}-{end_fc}.tif"
 
 # Button to run meteohub request
@@ -85,7 +85,7 @@ if st.button("Run meteohub_request"):
                           out=out,
                           start_fc=start_fc,
                           end_fc=end_fc,
-                          fc_range=fc_range,
+                          fc_range=True,
                           debug=True)
     st.success(result)
 
