@@ -6,24 +6,10 @@ import rasterio
 from rasterio.plot import show
 from folium.raster_layers import ImageOverlay
 import numpy as np
+from meteohub import run_meteohub
 import os
 import glob
-# import sys
-# import time
-# import subprocess
-# try:
-#     # replace "yourpackage" with the package you want to import
-#     from meteohub import run_meteohub
 
-# # This block executes only on the first run when your package isn't installed
-# except ModuleNotFoundError as e:
-#     print("METEOHUB not found. Installing...")
-#     token = st.secrets['GITHUB_TOKEN']
-#     subprocess.Popen([f"pip install git+https://{token}@github.com/SaferPlaces2023/meteohub.git"], shell=True)
-#     del token
-#     # wait for subprocess to install package before running your actual code below
-#     time.sleep(90)
-from meteohub import run_meteohub
 
 def read_geotiff(file_path):
     with rasterio.open(file_path) as src:
@@ -63,13 +49,13 @@ def remove_tif_files():
 st.title("Meteohub total precipitation forecast")
 
 # Inputs for meteohub request
-dataset = st.text_input(label="Dataset", value="COSMO-2I", help="The dataset to download.")
-varname = st.text_input(label="Varname", value="tp", help="The variable name to extract from the grib file.")
+dataset = st.text_input(label="Dataset", value="COSMO-2I", help="The dataset to download from Meteohub.")
+varname = st.text_input(label="Varname", value="tp", help="The variable name to extract from the grib file downloaded from Meteohub.")
 bbox = st.text_input(label="Bbox", value="11.9,45,13.2,46", help="The bounding box to extract the data.")
-date = st.text_input(label="Date", value="", help="The datetime to download with format %Y-%m-%d. Default is latest datetime available.")
-run = st.text_input(label="Run", value="00:00", help="The dataset to download.")
-start_fc = st.text_input(label="Start Forecast", value="1", help="The hour at which the accumulation starts.")
-end_fc = st.text_input(label="End Forecast", value=None, help="The hour at which the accumulation ends.")
+date = st.text_input(label="Date", value="", help="The date to download with format %Y-%m-%d.")
+run = st.text_input(label="Run", value="00:00", help="The hour of forecast run to download in format %H:%M. Can be 00:00 or 12:00.")
+start_fc = st.text_input(label="Start Forecast", value="1", help="The hour at which the forecast starts, starting from 1.")
+end_fc = st.text_input(label="End Forecast", value=None, help="The hour at which the forecast ends, if not specified the last hour is selected.")
 # fc_range = st.checkbox(label="Forecast Range", help="If True the output will be multiple tif files, one for each forecast hour. Default is False")
 out = f"{dataset}_{varname}_{date}_{run}_{start_fc}-{end_fc}.tif"
 
